@@ -14,10 +14,10 @@ function App() {
   }
 
   return (
-    <div className="min-h-screen bg-primary">
+    <div className="min-h-screen bg-gradient-to-b from-gray-900 to-black w-full">
       {/* Navigation */}
-      <nav className="fixed top-0 w-full bg-secondary/80 backdrop-blur-sm z-50">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <nav className="fixed top-0 w-full bg-black/50 backdrop-blur-sm z-50">
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8 w-full">
           <div className="flex items-center justify-between h-16">
             <motion.div
               initial={{ opacity: 0, x: -20 }}
@@ -48,14 +48,14 @@ function App() {
       </nav>
 
       {/* Main Content */}
-      <main className="pt-16">
+      <main className="w-full">
         {/* Hero Section */}
-        <section id="home" className="section-container flex flex-col items-center justify-center min-h-[calc(100vh-4rem)]">
+        <section id="home" className="container mx-auto px-4 sm:px-6 lg:px-8 flex flex-col items-center justify-center min-h-[calc(100vh-4rem)] pt-16">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.2 }}
-            className="text-center"
+            className="text-center w-full max-w-4xl"
           >
             <h1 className="text-5xl md:text-7xl font-bold mb-6">
               Software Engineer

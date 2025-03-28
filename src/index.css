@@ -4,7 +4,7 @@
 
 @layer base {
   body {
-    @apply bg-primary text-white;
+    @apply bg-primary text-white overflow-x-hidden;
     font-family: 'Inter', system-ui, -apple-system, sans-serif;
   }
 
@@ -15,7 +15,7 @@
 
 @layer components {
   .section-container {
-    @apply max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16;
+    @apply container mx-auto px-4 sm:px-6 lg:px-8 py-16;
   }
   
   .btn-primary {
@@ -25,11 +25,11 @@
 
 /* Custom scrollbar */
 ::-webkit-scrollbar {
-  width: 10px;
+  width: 8px;
 }
 
 ::-webkit-scrollbar-track {
-  @apply bg-primary;
+  @apply bg-black;
 }
 
 ::-webkit-scrollbar-thumb {
@@ -39,6 +39,7 @@
 /* Smooth scrolling */
 html {
   scroll-behavior: smooth;
+  @apply overflow-x-hidden;
 }
 
 :root {
@@ -67,8 +68,8 @@ a:hover {
 
 body {
   margin: 0;
-  display: flex;
-  place-items: center;
+  /* display: flex; */
+  /* place-items: center; */
   min-width: 320px;
   min-height: 100vh;
 }
