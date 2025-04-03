@@ -15,42 +15,10 @@ function App() {
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-gray-900 to-black w-full">
-      {/* Navigation */}
-      <nav className="fixed top-0 w-full bg-black/50 backdrop-blur-sm z-50">
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8 w-full">
-          <div className="flex items-center justify-between h-16">
-            <motion.div
-              initial={{ opacity: 0, x: -20 }}
-              animate={{ opacity: 1, x: 0 }}
-              className="text-2xl font-bold text-accent"
-            >
-              Krishna Chivukula
-            </motion.div>
-            <div className="hidden md:block">
-              <div className="flex items-center space-x-8">
-                {['home', 'about', 'experience', 'projects', 'contact'].map((item) => (
-                  <button
-                    key={item}
-                    onClick={() => scrollToSection(item)}
-                    className={`${
-                      activeSection === item
-                        ? 'text-accent'
-                        : 'text-gray-300 hover:text-accent'
-                    } transition-colors duration-300 capitalize`}
-                  >
-                    {item}
-                  </button>
-                ))}
-              </div>
-            </div>
-          </div>
-        </div>
-      </nav>
-
       {/* Main Content */}
       <main className="w-full">
         {/* Hero Section */}
-        <section id="home" className="container mx-auto px-4 sm:px-6 lg:px-8 flex flex-col items-center justify-center min-h-[calc(100vh-4rem)] pt-16">
+        <section id="home" className="container mx-auto px-4 sm:px-6 lg:px-8 flex flex-col items-center justify-center min-h-screen">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
@@ -58,11 +26,11 @@ function App() {
             className="text-center w-full max-w-4xl"
           >
             <h1 className="text-5xl md:text-7xl font-bold mb-6">
-              Software Engineer
+              Krishna Chivukula
               <span className="text-accent">.</span>
             </h1>
             <p className="text-xl text-gray-400 mb-8 max-w-2xl mx-auto">
-              Passionate about building scalable systems and creating impactful user experiences.
+              Software Engineer passionate about building scalable systems and creating impactful user experiences.
               Currently focused on distributed systems and cloud computing.
             </p>
             <button 

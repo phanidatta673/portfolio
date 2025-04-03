@@ -2,9 +2,37 @@ import { useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 
 const Experience = () => {
-  const [selectedExp, setSelectedExp] = useState(null)
+  const [selectedExp, setSelectedExp] = useState(0)
 
   const experiences = [
+    {
+      title: 'Full Stack Developer',
+      company: 'UIUC',
+      period: 'Sep 2023 - Dec 2024',
+      highlights: [
+        'Developed AI-powered analogy generation tool',
+        'Integrated OpenAI API for contextual explanations',
+        'Implemented Elasticsearch for optimized retrieval',
+        'Co-authored research paper on AI educational tools'
+      ],
+      techStack: ['React.js', 'Django', 'OpenAI API', 'Elasticsearch'],
+      diagram: {
+        title: 'AI System Architecture',
+        description: `
+          The analogy generation system architecture includes:
+          - React.js frontend for user interaction
+          - Django backend for request handling
+          - OpenAI API integration for analogy generation
+          - Elasticsearch for efficient storage and retrieval
+          - Vector embeddings for semantic search
+        `,
+        metrics: [
+          { label: 'Response Time', value: '1.5s', detail: 'Average analogy generation time' },
+          { label: 'Accuracy', value: '93%', detail: 'User satisfaction rate' },
+          { label: 'Database Size', value: '10K+', detail: 'Stored analogies' }
+        ]
+      }
+    },
     {
       title: 'Software Engineer',
       company: 'IBM',
@@ -30,34 +58,6 @@ const Experience = () => {
           { label: 'Response Time', value: '70%', detail: 'Reduction in search response time' },
           { label: 'Daily Transactions', value: '100K+', detail: 'Processed with 99.9% uptime' },
           { label: 'Successful Builds', value: '450+', detail: 'With automated CI/CD pipelines' }
-        ]
-      }
-    },
-    {
-      title: 'Research Assistant',
-      company: 'UIUC',
-      period: 'Sep 2023 - Dec 2024',
-      highlights: [
-        'Developed AI-powered analogy generation tool',
-        'Integrated OpenAI API for contextual explanations',
-        'Implemented Elasticsearch for optimized retrieval',
-        'Co-authored research paper on AI educational tools'
-      ],
-      techStack: ['React.js', 'Django', 'OpenAI API', 'Elasticsearch'],
-      diagram: {
-        title: 'AI System Architecture',
-        description: `
-          The analogy generation system architecture includes:
-          - React.js frontend for user interaction
-          - Django backend for request handling
-          - OpenAI API integration for analogy generation
-          - Elasticsearch for efficient storage and retrieval
-          - Vector embeddings for semantic search
-        `,
-        metrics: [
-          { label: 'Response Time', value: '1.5s', detail: 'Average analogy generation time' },
-          { label: 'Accuracy', value: '93%', detail: 'User satisfaction rate' },
-          { label: 'Database Size', value: '10K+', detail: 'Stored analogies' }
         ]
       }
     },
@@ -101,106 +101,102 @@ const Experience = () => {
         Professional Journey
       </motion.h2>
 
-      <div className="relative">
-        {/* Timeline line */}
-        <div className="absolute left-0 md:left-1/2 h-full w-0.5 bg-accent/30 transform -translate-x-1/2" />
+      <div className="grid grid-cols-12 gap-8">
+        {/* Sidebar Navigation */}
+        <div className="col-span-3">
+          <div className="sticky top-8 space-y-2 pr-4 border-r border-gray-700">
+            {experiences.map((exp, index) => (
+              <button
+                key={index}
+                onClick={() => setSelectedExp(index)}
+                className={`w-full text-left p-4 rounded-lg transition-all duration-300 relative ${
+                  selectedExp === index
+                    ? 'bg-accent/10 text-accent'
+                    : 'text-gray-400 hover:text-gray-200'
+                }`}
+              >
+                <div className="font-semibold">{exp.title}</div>
+                <div className="text-sm opacity-75">{exp.company}</div>
+                {selectedExp === index && (
+                  <motion.div
+                    layoutId="sidebar-active"
+                    className="absolute left-0 top-0 w-1 h-full bg-accent rounded-full"
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    exit={{ opacity: 0 }}
+                  />
+                )}
+              </button>
+            ))}
+          </div>
+        </div>
 
-        {experiences.map((exp, index) => (
-          <motion.div
-            key={index}
-            initial={{ opacity: 0, x: index % 2 === 0 ? -50 : 50 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.5, delay: index * 0.2 }}
-            className={`relative grid grid-cols-1 md:grid-cols-2 gap-8 mb-12 ${
-              index % 2 === 0 ? 'md:text-right' : 'md:flex-row-reverse'
-            }`}
-          >
-            <div 
-              className={index % 2 === 0 ? 'md:pr-12' : 'md:pl-12 md:col-start-2'}
-              onClick={() => setSelectedExp(selectedExp === index ? null : index)}
+        {/* Experience Details */}
+        <div className="col-span-9">
+          <AnimatePresence mode="wait">
+            <motion.div
+              key={selectedExp}
+              initial={{ opacity: 0, x: 20 }}
+              animate={{ opacity: 1, x: 0 }}
+              exit={{ opacity: 0, x: -20 }}
+              className="bg-secondary/50 p-6 rounded-lg"
             >
-              <div className="bg-secondary/50 p-6 rounded-lg hover:bg-secondary/70 transition-all duration-300 cursor-pointer">
-                <h3 className="text-xl font-bold text-accent mb-1">{exp.title}</h3>
-                <div className="text-gray-400 mb-2">{exp.company}</div>
-                <div className="text-sm text-gray-500 mb-4">{exp.period}</div>
-                <ul className="space-y-2 text-gray-300">
-                  {exp.highlights.map((highlight, i) => (
-                    <li key={i} className="flex items-start">
-                      <span className="text-accent mr-2">•</span>
-                      {highlight}
-                    </li>
-                  ))}
-                </ul>
-                <div className="mt-4 flex flex-wrap gap-2">
-                  {exp.techStack.map((tech, i) => (
-                    <span
-                      key={i}
-                      className="text-xs bg-accent/10 text-accent px-2 py-1 rounded-full"
-                    >
-                      {tech}
-                    </span>
-                  ))}
+              <div className="mb-6">
+                <h3 className="text-2xl font-bold text-accent">{experiences[selectedExp].title}</h3>
+                <div className="text-gray-400">{experiences[selectedExp].company}</div>
+                <div className="text-sm text-gray-500">{experiences[selectedExp].period}</div>
+              </div>
+
+              <div className="space-y-6">
+                <div>
+                  <h4 className="text-lg font-semibold text-gray-300 mb-3">Key Achievements</h4>
+                  <ul className="space-y-2">
+                    {experiences[selectedExp].highlights.map((highlight, i) => (
+                      <li key={i} className="flex items-start text-gray-300">
+                        <span className="text-accent mr-2">•</span>
+                        {highlight}
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+
+                <div>
+                  <h4 className="text-lg font-semibold text-gray-300 mb-3">Technologies Used</h4>
+                  <div className="flex flex-wrap gap-2">
+                    {experiences[selectedExp].techStack.map((tech, i) => (
+                      <span
+                        key={i}
+                        className="text-sm bg-primary/50 px-3 py-1 rounded-full text-gray-300"
+                      >
+                        {tech}
+                      </span>
+                    ))}
+                  </div>
+                </div>
+
+                <div>
+                  <h4 className="text-lg font-semibold text-gray-300 mb-3">System Architecture</h4>
+                  <div className="bg-primary/30 p-4 rounded-lg">
+                    <pre className="whitespace-pre-wrap text-sm text-gray-300">
+                      {experiences[selectedExp].diagram.description}
+                    </pre>
+                  </div>
+
+                  <div className="grid grid-cols-3 gap-4 mt-4">
+                    {experiences[selectedExp].diagram.metrics.map((metric, i) => (
+                      <div key={i} className="bg-primary/20 p-4 rounded-lg text-center">
+                        <div className="text-xl font-bold text-accent mb-1">{metric.value}</div>
+                        <div className="text-sm text-gray-400">{metric.label}</div>
+                        <div className="text-xs text-gray-500">{metric.detail}</div>
+                      </div>
+                    ))}
+                  </div>
                 </div>
               </div>
-            </div>
-
-            {/* Timeline dot */}
-            <div className="absolute left-0 md:left-1/2 w-4 h-4 bg-accent rounded-full transform -translate-x-1/2 mt-8" />
-          </motion.div>
-        ))}
-      </div>
-
-      {/* Technical Diagram Modal */}
-      <AnimatePresence>
-        {selectedExp !== null && (
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            className="fixed inset-0 bg-black/80 z-50 flex items-center justify-center p-4"
-            onClick={() => setSelectedExp(null)}
-          >
-            <motion.div
-              initial={{ scale: 0.9, opacity: 0 }}
-              animate={{ scale: 1, opacity: 1 }}
-              exit={{ scale: 0.9, opacity: 0 }}
-              className="bg-secondary p-6 rounded-lg max-w-3xl w-full max-h-[90vh] overflow-y-auto"
-              onClick={e => e.stopPropagation()}
-            >
-              <h3 className="text-2xl font-bold text-accent mb-4">
-                {experiences[selectedExp].diagram.title}
-              </h3>
-              <div className="prose prose-invert max-w-none">
-                <pre className="bg-primary/50 p-4 rounded-lg overflow-x-auto whitespace-pre-wrap">
-                  {experiences[selectedExp].diagram.description}
-                </pre>
-              </div>
-              
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mt-6">
-                {experiences[selectedExp].diagram.metrics.map((metric, i) => (
-                  <motion.div
-                    key={i}
-                    initial={{ opacity: 0, y: 20 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ delay: i * 0.1 }}
-                    className="bg-primary/50 p-4 rounded-lg text-center"
-                  >
-                    <div className="text-2xl font-bold text-accent mb-1">
-                      {metric.value}
-                    </div>
-                    <div className="text-sm text-gray-400 mb-1">
-                      {metric.label}
-                    </div>
-                    <div className="text-xs text-gray-500">
-                      {metric.detail}
-                    </div>
-                  </motion.div>
-                ))}
-              </div>
             </motion.div>
-          </motion.div>
-        )}
-      </AnimatePresence>
+          </AnimatePresence>
+        </div>
+      </div>
     </section>
   )
 }
